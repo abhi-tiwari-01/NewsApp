@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NewsItem from './NewsItem';
 import Spinner from './Spinner';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 export class News extends Component {
   constructor() {
@@ -16,21 +16,21 @@ export class News extends Component {
   static defaultProps = {
     country: 'us',
     pageSize: 9,
-    category: 'general'
-  }
+    category: 'general',
+  };
 
   static propTypes = {
     country: PropTypes.string,
     pageSize: PropTypes.number,
-    category: PropTypes.string    
-  }
+    category: PropTypes.string,
+  };
 
   async componentDidMount() {
     this.fetchNews();
   }
 
   fetchNews = async () => {
-    const API_KEY = "679488ec797a4381a52e7894cc85fb26";
+    const API_KEY = '679488ec797a4381a52e7894cc85fb26';
     const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${API_KEY}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     const data = await fetch(url);
@@ -54,7 +54,10 @@ export class News extends Component {
   };
 
   handleNextClick = async () => {
-    if (this.state.page + 1 <= Math.ceil(this.state.totalResults / this.props.pageSize)) {
+    if (
+      this.state.page + 1 <=
+      Math.ceil(this.state.totalResults / this.props.pageSize)
+    ) {
       this.setState(
         (prevState) => ({
           page: prevState.page + 1,
@@ -68,25 +71,35 @@ export class News extends Component {
   render() {
     return (
       <div className="container my-4">
-        <h1 className="text-center my-5 text-white">
-          NewsApp - Top Headlines
-        </h1>
-        
+        <h1 className="text-center my-5 text-white">NewsApp - Top Headlines</h1>
+
         {/* Show spinner when loading */}
         {this.state.loading && <Spinner />}
-        
+
         {/* Display articles only when not loading */}
         {!this.state.loading && (
           <div className="row">
             {this.state.articles.map((element) => (
               <div className="col-md-4" key={element.url}>
                 <NewsItem
-                  title={element.title ? element.title.slice(0, 45) : ''}
+                  title={
+                    element.title
+                      ? element.title.length > 50
+                        ? element.title.slice(0, 50) + '...'
+                        : element.title
+                      : ''
+                  }
                   description={
-                    element.description ? element.description.slice(0, 80) : ''
+                    element.description
+                      ? element.description.length > 90
+                        ? element.description.slice(0, 90) + '...'
+                        : element.description
+                      : ''
                   }
                   imageUrl={element.urlToImage}
                   newsUrl={element.url}
+                  date={element.publishedAt}
+                  source={element.source}
                 />
               </div>
             ))}
@@ -95,7 +108,7 @@ export class News extends Component {
 
         <div className="container d-flex justify-content-center my-5">
           <button
-            disabled={this.state.page <= 1 || this.state.loading}  // Disable when loading
+            disabled={this.state.page <= 1 || this.state.loading} // Disable when loading
             type="button"
             className="btn btn-light mx-3"
             onClick={this.handlePrevClick}
@@ -107,8 +120,10 @@ export class News extends Component {
             className="btn btn-light mx-3"
             onClick={this.handleNextClick}
             disabled={
-              this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize) || this.state.loading
-            }  // Disable when loading
+              this.state.page + 1 >
+                Math.ceil(this.state.totalResults / this.props.pageSize) ||
+              this.state.loading
+            } // Disable when loading
           >
             Next &rarr;
           </button>
