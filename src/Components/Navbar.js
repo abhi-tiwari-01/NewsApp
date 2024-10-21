@@ -1,16 +1,10 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-
 export class Navbar extends Component {
-  static propTypes = {
-
-  }
-
   render() {
     return (
       <div>
         
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
                 <a className="navbar-brand" href="/">NewsApp</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,8 +20,17 @@ export class Navbar extends Component {
                         Category
                     </a>
                     <ul className="dropdown-menu">
-                        <li><a className="dropdown-item" href="/">National News</a></li>
-                        <li><a className="dropdown-item" href="/">International News</a></li>
+                        <li><a className="dropdown-item" href="/">Business</a></li>
+                        <li><hr className="dropdown-divider"/></li>
+                        <li><a className="dropdown-item" href="/">Entertainment</a></li>
+                        <li><hr className="dropdown-divider"/></li>
+                        <li><a className="dropdown-item" href="/">General</a></li>
+                        <li><hr className="dropdown-divider"/></li>
+                        <li><a className="dropdown-item" href="/">Health</a></li>
+                        <li><hr className="dropdown-divider"/></li>
+                        <li><a className="dropdown-item" href="/">Science</a></li>
+                        <li><hr className="dropdown-divider"/></li>
+                        <li><a className="dropdown-item" href="/">Technology</a></li>
                         <li><hr className="dropdown-divider"/></li>
                         <li><a className="dropdown-item" href="/">Sports News</a></li>
                     </ul>

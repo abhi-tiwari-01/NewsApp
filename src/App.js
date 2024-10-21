@@ -6,9 +6,9 @@ import News from './Components/News';
 export default class App extends Component {
   render() {
     return (
-      <div>
+      <div className='bg-dark'>
         <Navbar/>
-        <News/>
+        <News pageSize={9} country="us" category='sports'/>
       </div>
     )
   }
